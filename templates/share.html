@@ -1,0 +1,167 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block main %}
+<main id="view-page">
+    <section class="top-bar">
+        <div class="top-bar-left">
+            <img src={% static 'images/arrow1.png' %} alt="back-button" onclick="history.back()">
+        </div>
+
+        <h1>Manage access</h1>
+
+        <div class="top-bar-right">
+            <div class="search-user">
+                {% comment %} <input type="text" name="search-user" id="search-user"> {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container-share">
+        {% if show_note_owner %}
+            <p class="note-owner">Note owner : {{note_owner}}</p>
+        {% endif %}
+        <div class="heading">
+            <h3>Viewers</h3>
+            <div class="button_plus" onclick="showShareForm('view')"></div>
+            {% for s in share.view %}
+                {% if s == "@anyone_with_link" %}
+                    <div class="user-card anyone" onclick="showUpdateForm('{{s}}', 'view', true)">Anyone with the link can view
+                        <span class="link"></span>
+                        <button class="copy-button" onclick="navigator.clipboard.writeText(link)">Copy</button>
+                    </div>
+                {% else %}
+                    {% if s == name %}
+                        <div class="user-card" onclick="showUpdateForm('{{s}}', 'view')">{{s}} (you)</div>
+                    {% else %}
+                        <div class="user-card" onclick="showUpdateForm('{{s}}', 'view')">{{s}}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="heading">
+            <h3>Editors</h3>
+            <div class="button_plus" onclick="showShareForm('edit')"></div>
+            {% for s in share.edit %}
+                {% if s == "@anyone_with_link" %}
+                    <div class="user-card anyone" onclick="showUpdateForm('{{s}}', 'edit', true)">Anyone with the link can edit
+                        <span class="link"></span>
+                        <button class="copy-button" onclick="navigator.clipboard.writeText(link)">Copy</button>
+                    </div>
+                {% else %}
+                    {% if s == name %}
+                        <div class="user-card" onclick="showUpdateForm('{{s}}', 'edit')">{{s}} (you)</div>
+                    {% else %}
+                        <div class="user-card" onclick="showUpdateForm('{{s}}', 'edit')">{{s}}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="heading">
+            <h3>Managers</h3>
+            <div class="button_plus" onclick="showShareForm('manage')"></div>
+            {% for s in share.manage %}
+                {% if s == "@anyone_with_link" %}
+                    <div class="user-card anyone" onclick="showUpdateForm('{{s}}', 'manage', true)">Anyone with the link can manage
+                        <span class="link"></span>
+                        <button class="copy-button" onclick="navigator.clipboard.writeText(link)">Copy</button>
+                    </div>
+                {% else %}
+                    {% if s == name %}
+                        <div class="user-card" onclick="showUpdateForm('{{s}}', 'manage')">{{s}} (you)</div>
+                    {% else %}
+                        <div class="user-card" onclick="showUpdateForm('{{s}}', 'manage')">{{s}}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </section>
+
+
+    <div class="form-wrapper hide" id="share-form-wrapper" onclick="hideform(this)">
+        <form action="" method="POST" id="share-form">
+            {% csrf_token %}
+            <h2>Add user</h2>
+            <div class="cross-button"></div>
+            <label>
+                <input type="checkbox" name="anyone" id="anyone" onchange="toggleUserVisibility()">
+                Anyone with the link (public)
+            </label>
+            <select name="role" id="role">
+                <option value="view">Viewer</option>
+                <option value="edit">Editor</option>
+                <option value="manage">Manager</option>
+            </select>
+            <input type="search" name="user" id="user" placeholder="Username" autofocus>
+            <button type="submit" name="add">Add</button>
+        </form>
+        
+        <form action="" method="POST" id="update-form">
+            {% csrf_token %}
+            <h2>Update user</h2>
+            <h4 id="usernameHeading"></h4>
+            <input type="hidden" name="username" id="username">
+            <div class="cross-button"></div>
+            <select name="updateRole" id="updateRole">
+                <option value="view">Viewer</option>
+                <option value="edit">Editor</option>
+                <option value="manage">Manager</option>
+            </select>
+            <div class="button-wrapper">
+                <button type="submit" name="remove">Remove</button>
+                <button type="submit" name="update">Update</button>    
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", () => {
+            link = location.href.slice(0, -6)
+            document.querySelector(".link").innerHTML = link
+        })
+
+        function showShareForm(roleValue){
+            role.value = roleValue
+            document.getElementById("share-form-wrapper").classList.remove("hide")
+            document.getElementById("share-form").classList.remove("hide")
+            document.getElementById("update-form").classList.add("hide")
+        }
+        
+        function showUpdateForm(name, roleValue, anyone=false){
+            if (event.target.classList.contains("user-card")){
+                updateRole.value = roleValue
+                if (anyone){
+                    usernameHeading.innerHTML = "Anyone with link"
+                } else{
+                    usernameHeading.innerHTML = name
+                }
+                
+                username.value = name
+                document.getElementById("share-form-wrapper").classList.remove("hide")
+                document.getElementById("share-form").classList.add("hide")
+                document.getElementById("update-form").classList.remove("hide")
+            }
+        }
+
+        function hideform(form){
+            if (event.target === form || event.target.classList.contains("cross-button")){
+                form.classList.add("hide")
+            }
+        }
+        
+        function toggleUserVisibility(){
+            if (event.currentTarget.checked) {
+                user.style.display = "none"
+            } else {
+                user.style.display = "inline"
+            }
+        }
+        
+    </script>
+</main>
+{% endblock main %}

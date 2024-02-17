@@ -1,0 +1,72 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block main %}
+<main id="view-page">
+    <section class="top-bar">
+        <div class="top-bar-left">
+            {% comment %} <img src={% static 'images/arrow1.png' %} alt="back-button" id="back-button" onclick="window.location.replace('/')"> {% endcomment %}
+            <img src={% static 'images/arrow1.png' %} alt="back-button" onclick="history.back()">
+            <button id="export" onclick="downloadFile()">Export</button>
+            {% if access == "edit" %}
+                <form action="{{note.dateCreated}}/edit" method="post">
+                    {% csrf_token %}
+                    <button id="edit-button" name="edit" type="submit">Edit</button>
+                </form>
+            {% elif access == "manage" %}
+                <form action="{{note.dateCreated}}/edit" method="post">
+                    {% csrf_token %}
+                    <button id="edit-button" name="edit" type="submit">Edit</button>
+                </form>
+                <form action="{{note.dateCreated}}/share" method="post">
+                    {% csrf_token %}
+                    <button id="share-button" name="share" type="submit">Share</button>
+                </form>
+            {% elif access == "owner" %}
+                <form action="{{note.dateCreated}}/edit" method="post">
+                    {% csrf_token %}
+                    <button id="edit-button" name="edit" type="submit">Edit</button>
+                </form>
+                <form action="{{note.dateCreated}}/share" method="post">
+                    {% csrf_token %}
+                    <button id="share-button" name="share" type="submit">Share</button>
+                </form>
+                <form action="{{note.dateCreated}}/delete" method="post">
+                    {% csrf_token %}
+                    <button id="delete-button" name="delete" type="submit">Delete</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="top-bar-right">
+            <span class="date-modified">Last modified: {{note.modified}}</span>
+            <span class="date-created">Date Created: {{note.created}}</span>
+        </div>
+    </section>
+
+
+    <section class="container-display-note">
+        {% if show_note_owner %}
+            <p class="note-owner">Note owner : {{note.owner}}</p>
+        {% endif %}
+        <input class="view-mode" type="text" name="subject" id="subject" readonly value="{{note.subject}}"></input>
+        <textarea class="view-mode" name="note-content" id="note-content" readonly>{{note.content}}</textarea>
+
+    </section>
+
+    <script type="text/javascript">
+        function downloadFile(){
+            const link = document.createElement("a");
+            const file = new Blob(["{{note.subject}}", "\n\n", `{{note.content}}`], {type: "text/plain"})
+            link.href = URL.createObjectURL(file);
+            if ("{{name}}"=="AnonymousUser"){
+                link.download = "{{note.created}}.txt";
+            } else{
+                link.download = "{{note.owner}} {{note.created}}.txt";
+            }
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+    </script>
+</main>
+{% endblock main %}

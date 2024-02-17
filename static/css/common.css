@@ -1,0 +1,126 @@
+:root {
+    --bg-primary: #101015;
+    --bg-secondary: #161618;
+    --bg-tertiary: #202025;
+    --bg-accent: #323250; /* accent can be used later for themes*/
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+}
+
+body {
+    background: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.password-wrapper {
+    position: relative;
+}
+
+.eye {
+    width: 13px;
+    height: 13px;
+    border: 1px solid black;
+    border-radius: 75% 15%;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+.eye:before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+.slash:after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: black;
+    position: absolute;
+    top: 6px;
+    left: -3px;
+}
+
+
+p.note-owner{
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+
+/* header main and footer */
+header {
+    padding: 20px;
+    font-size: 26px;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--text-secondary);
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+}
+
+header>div {
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    width: 30px;
+    margin-right: 15px;
+}
+
+header form {
+    margin-left: 30px;
+    display: inline;
+}
+
+header button {
+    padding: 5px 15px;
+    font-size: 20px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: 2px solid var(--text-secondary);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main:not(.container-right) {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+footer {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--text-secondary);
+    box-sizing: border-box;
+}
+

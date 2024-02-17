@@ -1,0 +1,131 @@
+@import url(common.css);
+
+
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-left {
+    height: 400px;
+    text-align: center;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../images/big-logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 25px;
+}
+
+.container-left h1 {
+    font-size:36px;
+    color: var(--text-primary);
+}
+
+.container-left h2 {
+    color: var(--text-secondary);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+
+.separator {
+    width: 2px;
+    height: 70vh;
+    background: var(--text-secondary);
+    border-radius: 2px;
+
+}
+
+
+.container-right {
+    padding: 25px 25px 25px 25px;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    border: 2px solid var(--bg-secondary);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+form h1 {
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+
+form input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 30px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+
+#back-otp {
+    width: 40%;
+    position: absolute;
+    left: 180px;
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+}
+
+
+
+.container-right div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-right p {
+    color: var(--text-secondary);
+    font-size: 20px;
+    cursor: default;
+}
+
+.container-right a {
+    color: var(--text-secondary);
+    /* color: var(--text-primary); */
+    text-decoration: none;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.container-right hr {
+    width: 90%;
+    margin: 25px 0;
+}
+
+
+@media screen and (max-width: 500px) {
+    form {
+        width: 80%;
+    }
+}
+

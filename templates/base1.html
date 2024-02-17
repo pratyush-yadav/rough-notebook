@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rough Notebook</title>
+    <link rel="shortcut icon" type="image/ico" href={% static 'images/favicon.ico' %}/>
+    <link rel="shortcut icon" type="image/png" href={% static 'images/favicon.ico' %}/>
+    <link rel="icon" type="image/x-icon" href={% static 'images/favicon.ico' %}>
+    <link rel="stylesheet" href={% static 'css/index.css' %}>
+    <link rel="stylesheet" href={% static 'css/messages.css' %}>
+</head>
+
+<body>
+
+    {% include 'messages.html' %}
+    
+    <div class="container">
+
+        <section class="container-left">
+            <h1>Rough Notebook</h1>
+            <h2>A place for your words and ideas.</h2>
+        </section>
+
+        <div class="separator"></div>
+
+        <main class="container-right">
+            {% block main %}{% endblock main %}
+        </main>
+
+    </div>
+
+</body>
+
+</html>

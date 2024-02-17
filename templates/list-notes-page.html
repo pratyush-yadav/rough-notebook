@@ -1,0 +1,124 @@
+{% extends "base2.html" %}
+
+
+{% block main %}
+<main id="list-notes-page">
+
+    <section class="top-bar">
+        <div class="tabs-wrapper">
+            <button id="my-notes-tab" class="tab active-tab">My notes</button>
+            <button id="shared-notes-tab" class="tab">Shared with me</button>
+        </div>
+
+        <button onclick="window.open('/new_note', '_self')">Create new note</button>
+
+        <select name="sort-by" id="sort-by" onchange="sortNotes(this.value)">
+            <option value="Modified (newest first)">Sort by: Modified (newest first)</option>
+            <option value="Modified (oldest first)">Sort by: Modified (oldest first)</option>
+            <option value="Created (newest first)">Sort by: Created (newest first)</option>
+            <option value="Created (oldest first)">Sort by: Created (oldest first)</option>
+        </select>
+    </section>
+
+    <section class="container-list-notes" id="my-notes-container">
+        {% for note in notes %}
+            <div class="note-card" onclick="window.open('note/'+{{note.dateCreated}}, '_self');" data-created="{{note.dateCreated}}" data-modified="{{note.dateModified}}">
+                <span class="subject">{{note.subject}}</span>
+                {% comment %} <span class="is-shared">{{note.shared}}</span> {% endcomment %}
+                <span class="date-modified">Last modified:</span>
+                <span class="date-modified">{{note.modified}}</span>
+                <span class="note-content">{{note.content}}</span>
+                <span class="date-created">Date created:</span>
+                <span class="date-created">{{note.created}}</span>
+            </div>
+        {% empty %}
+            <p class="no-notes">No notes found !<br>Start by creating a new note...</p>
+        {% endfor %}
+    </section>
+    <section class="container-list-notes" id="shared-notes-container">
+        {% for note in sharedNotes %}
+            <div class="note-card" onclick="window.open('note/'+{{note.dateCreated}}, '_self');" data-created="{{note.dateCreated}}" data-modified="{{note.dateModified}}">
+                <span class="subject">{{note.subject}}</span>
+                <span class="date-modified">Last modified:</span>
+                <span class="date-modified">{{note.modified}}</span>
+                <span class="note-content">{{note.content}}</span>
+                <span class="date-created">Date created:</span>
+                <span class="date-created">{{note.created}}</span>
+            </div>
+        {% empty %}
+            <p class="no-notes">No notes are shared with you !</p>
+        {% endfor %}
+    </section>
+
+    <script type="text/javascript">
+
+        const noteCards = document.querySelectorAll(".note-card");
+        const ncArray = Array.prototype.slice.call(noteCards, 0);
+
+        function sortNotes(s){
+            localStorage.setItem("sort-by", s);
+            if (s === "Modified (newest first)"){
+                ncArray.sort( function (b,a) {return a.dataset.modified-b.dataset.modified} );
+            } else if (s === "Modified (oldest first)"){
+                ncArray.sort( function (a,b) {return a.dataset.modified-b.dataset.modified} );
+            } else if (s === "Created (newest first)"){
+                ncArray.sort( function (b,a) {return a.dataset.created-b.dataset.created} );
+            } else if (s === "Created (oldest first)"){
+                ncArray.sort( function (a,b) {return a.dataset.created-b.dataset.created} );
+            } // arrow functions not working above... :(
+            
+            order = 1;
+            ncArray.forEach(noteCard => {
+                noteCard.style.order = order++;
+            })
+        }
+
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const sortBy = document.getElementById("sort-by");
+            const val = localStorage.getItem("sort-by");
+            if ( val !== null ){
+                sortBy.value = val;
+                // changing value of sortBy (programatically) like this does not fire the onchange event... fire manually.
+                sortBy.onchange();
+            }
+            
+            const myNoteTab = document.getElementById("my-notes-tab");
+            const sharedNoteTab = document.getElementById("shared-notes-tab");
+
+            const myNotesContainer= document.getElementById("my-notes-container");
+            const sharedNotesContainer= document.getElementById("shared-notes-container");
+
+            const showElement = (element) => element.style.display = "flex";
+            const hideElement = (element) => element.style.display = "none";
+
+            myNoteTab.onclick = function(){
+                hideElement(sharedNotesContainer);
+                sharedNoteTab.classList.remove("active-tab");
+                myNoteTab.classList.add("active-tab");
+                showElement(myNotesContainer);
+                localStorage.setItem("tab", "my-notes-tab");
+            }
+            
+            sharedNoteTab.onclick = function(){
+                hideElement(myNotesContainer);
+                myNoteTab.classList.remove("active-tab");
+                sharedNoteTab.classList.add("active-tab");
+                showElement(sharedNotesContainer);
+                localStorage.setItem("tab", "shared-notes-tab");
+            }
+
+            const currentTab = localStorage.getItem("tab")
+            // open my-note-tab after saving a new note or on fresh site visit...
+            if ({{load_after_save}} || currentTab===null){
+                myNoteTab.click();
+            } else{
+                document.getElementById(currentTab).click()
+            }
+
+        });
+    </script>
+
+</main>
+
+{% endblock main %}

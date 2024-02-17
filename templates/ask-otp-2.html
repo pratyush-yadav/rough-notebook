@@ -1,0 +1,26 @@
+{% extends "base1.html" %}
+
+{% block main %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <h1 id="otp-heading">Enter OTP</h1>
+    <button type="submit" id="back-otp" name="back" onclick="otp.value='0000'">back</button>
+    <input type="text" placeholder="Enter OTP" title="Enter OTP" minlength="4" maxlength="4" onkeydown="checkInput()" autofocus autocomplete="off" required id="otp" name="otp">
+    <button type="submit" id="verify-otp" name="verify-otp">Verify OTP</button>
+</form>
+
+<script type="text/javascript">
+    function checkInput() {
+        console.log(event.key)
+        if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'Delete', 'Tab'].includes(event.key)){
+            return true
+        }else{
+            event.preventDefault();
+            if (event.key === "Enter"){
+                document.getElementById("verify-otp").click();
+            }
+        } 
+    }
+</script>
+
+{% endblock main %}

@@ -1,0 +1,56 @@
+{% extends "base1.html" %}
+
+{% block main %}
+<form action="" method="POST" onsubmit="validateForm()">
+    {% csrf_token %}
+    <h1>Sign up</h1>
+    <input type="text" placeholder="First name" title="Enter your first name" autofocus autocomplete="off"
+         required name="fname" id="fname">
+    <input type="text" placeholder="Last name" title="Enter your last name" autofocus autocomplete="off"
+         required name="lname" id="lname">
+    <input type="email" placeholder="Email" title="Enter your email address" autocomplete="off"
+        required name="email" id="email">
+    <input type="text" placeholder="Set username" title="Set a new username" autofocus autocomplete="off" required id="username" name="username">
+    <div class="password-wrapper">
+        <input type="password" placeholder="Set password" title="Enter new password"
+        autocomplete="off" minlength="5" maxlength="20" autofocus required name="password1" id="password1">
+        <span class="eye slash" onclick="togglePasswordVisibility(this)"></span>
+    </div>
+    <div class="password-wrapper">
+        <input type="password" placeholder="Confirm password" title="Re-enter new password"
+            autocomplete="off" minlength="5" maxlength="20" required name="password2" id="password2">
+        <span class="eye slash" onclick="togglePasswordVisibility(this)"></span>
+    </div>
+    <button type="submit">Verify email</button>
+</form>
+
+<div>
+    <hr>
+    <p>
+        Already have an account?
+        <a onclick="history.back()">Log in</a>
+        {% comment %} <a href="/">Log in</a> {% endcomment %}
+    </p>
+</div>
+
+<script type="text/javascript">
+    function togglePasswordVisibility(element){
+        element.classList.toggle("slash")
+        p = element.previousElementSibling
+        p.setAttribute("type", p.getAttribute("type")==="text" ? "password" : "text")
+    }
+
+    function validateForm(){
+        if (password1 !== password2){
+            event.preventdefault()
+        }
+    }
+</script>
+{% endblock main %}
+
+{% comment %} <div class="popup">
+    <p>Check your inbox for instructions to verify the email address and set password.</p>
+</div> {% endcomment %}
+
+
+

@@ -1,0 +1,100 @@
+@import url(common.css);
+
+
+/* CSS rules for TOP BAR */
+.top-bar {
+    background: var(--bg-secondary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-bar-left {
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-bar-left img {
+    width: 60px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.top-bar-left button {
+    width: 100px;
+    padding: 5px;
+    margin: 10px 20px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.top-bar-right {
+    padding: 0 20px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.top-bar-right button{
+    width: 150px;
+    padding: 5px;
+    margin: 10px 20px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* CSS rules for display note container */
+.container-display-note {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.container-display-note form{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.container-display-note input {
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    outline: none;
+}
+
+.container-display-note textarea {
+    margin: 10px;
+    padding: 10px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    outline: none;
+    resize: none;
+    flex-grow: 1;
+}
+
+/* CSS rules for view mode */
+.view-mode {
+    border: none;
+}
+
+/* CSS rules for edit mode */
+.edit-mode {
+    border: 1px solid var(--text-secondary);
+}

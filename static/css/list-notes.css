@@ -1,0 +1,96 @@
+@import url(common.css);
+
+
+/* CSS rules for TOP BAR */
+.top-bar {
+    background: var(--bg-secondary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.tabs-wrapper {
+    display: flex;
+}
+
+.tab {
+    padding: 10px 30px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: none;
+    cursor: pointer;
+}
+
+.active-tab {
+    color: var(--text-primary);
+    background: var(--bg-primary);
+}
+
+.top-bar>button {
+    margin: 10px;
+    padding: 7px 15px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    border: 1px solid var(--text-secondary);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#sort-by {
+    margin: 10px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: none;
+    cursor: pointer;
+}
+
+
+/* CSS rules for list notes page */
+.container-list-notes {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.note-card {
+    margin: 20px 40px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-weight: 100;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--bg-secondary);
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: auto 90px 150px;
+    grid-template-rows: auto auto;
+    cursor: pointer;
+}
+
+.subject {
+    font-size: 22px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.note-content {
+    /* grid-column: 1 / span 2; */
+    color: var(--text-secondary);
+    overflow: hidden;
+    height: 22px;
+}
+
+.date-created,
+.date-modified {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.no-notes{
+    color: var(--text-secondary);
+    margin: auto;
+    text-align: center;
+    font-size: 28px;
+}

@@ -1,0 +1,29 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block main %}
+<main id="edit-page">
+    <section class="top-bar">
+        <div class="top-bar-left">
+            {% comment %} <img src={% static 'images/arrow1.png' %} alt="back-button" id="back-button" onclick="window.location.replace('/')"> {% endcomment %}
+            <img src={% static 'images/arrow1.png' %} alt="back-button" id="back-button" onclick="history.back()">
+        </div>
+
+        <div class="top-bar-right">
+            <button type="submit" form="new-note-form">Save</button>
+        </div>
+    </section>
+
+
+    <section class="container-display-note">
+        
+        <form action="" method="POST" id="new-note-form">
+            {% csrf_token %}
+            <input class="edit-mode" type="text" name="subject" id="subject" placeholder="Subject" autocomplete="off" autofocus>
+            <textarea class="edit-mode" name="note-content" id="note-content" placeholder="Start writing your ideas here..."></textarea>
+        </form>
+
+    </section>
+
+</main>
+{% endblock main %}

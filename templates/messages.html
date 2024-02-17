@@ -1,0 +1,3 @@
+{% for message in messages %}
+    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}" onclick="this.remove()">{{ message }}</div>
+{% endfor %}

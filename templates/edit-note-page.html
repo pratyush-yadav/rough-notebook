@@ -1,0 +1,33 @@
+{% extends "base2.html" %}
+{% load static %}
+
+
+{% block main %}
+<main id="edit-page">
+    <section class="top-bar">
+        <div class="top-bar-left">
+            <img src={% static 'images/arrow1.png' %} alt="back-button" id="back-button" onclick="history.back()">
+            <button type="submit" form="edit_note_form">Save</button>
+        </div>
+
+        <div class="top-bar-right">
+            <span class="date-modified">Last modified: {{note.modified}}</span>
+            <span class="date-created">Date Created: {{note.created}}</span>
+        </div>
+    </section>
+
+
+    <section class="container-display-note">
+        {% if show_note_owner %}
+            <p class="note-owner">Note owner : {{note.owner}}</p>
+        {% endif %}
+        <form action="update" method="POST" id="edit_note_form">
+            {% csrf_token %}
+            <input class="edit-mode" type="text" name="subject" id="subject" placeholder="Subject" autofocus autocomplete="off" value="{{note.subject}}">
+            <textarea class="edit-mode" name="note-content" id="note-content" placeholder="Start writing your ideas here...">{{note.content}}</textarea>
+        </form>
+
+    </section>
+
+</main>
+{% endblock main %}

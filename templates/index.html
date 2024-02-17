@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rough Notebook</title>
+    <link rel="shortcut icon" type="image/ico" href={% static 'images/favicon.ico' %}/>
+    <link rel="shortcut icon" type="image/png" href={% static 'images/favicon.ico' %}/>
+    <link rel="icon" type="image/x-icon" href={% static 'images/favicon.ico' %}>
+    <link rel="stylesheet" href={% static 'css/index.css' %}>
+</head>
+
+<body>
+    <div class="container">
+
+        <section class="container-left">
+            <h1>Rough Notebook</h1>
+            <h2>A place for your words and ideas.</h2>
+        </section>
+
+        <div class="separator"></div>
+
+        <main class="container-right">
+            
+            <div class="container-right-item" id="login">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h1>Log in</h1>
+                    <input type="text" placeholder="Email or username" title="Enter your full name" autofocus
+                        autocomplete="off" required id="username" name="username">
+                    <!-- autocomplete="off" is used to disable suggestions -->
+                    <input type="password" placeholder="Password" title="Enter your password" required id="password"
+                        name="password">
+                    <button type="submit">Log in</button>
+                </form>
+                
+                <div>
+                    <p>
+                        <a class="plain-link" href="#forgot-password">Forgot password?</a>
+                    </p>
+                    <hr class="horizontal-separator">
+                    <p>
+                        Don't have an account?
+                        <a class="plain-link" href="#signup">Sign up</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="container-right-item" id="signup">
+                <form action="signup" method="POST">
+                    {% csrf_token %}
+                    <h1>Sign up</h1>
+                    <input type="text" placeholder="First name" title="Enter your first name" autofocus autocomplete="off"
+                         required name="fname" id="fname">
+                    <input type="text" placeholder="Last name" title="Enter your last name" autofocus autocomplete="off"
+                         required name="lname" id="lname">
+                    <input type="email" placeholder="Email" title="Enter your email address" autocomplete="off"
+                        required name="email" id="email">
+                    <button type="submit">Next</button>
+                </form>
+                
+                <div>
+                    <hr class="horizontal-separator">
+                    <p>
+                        Already have an account?
+                        <a class="plain-link" href="#login">Log in</a>
+                        {% comment %} <a href="/">Log in</a> {% endcomment %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="container-right-item" id="forgot-password">
+                <form action="forgot-password" method="POST">
+                    {% csrf_token %}
+                    <h1>Forgot password</h1>
+                    <input type="text" placeholder="Email or username" title="Enter your email or username" autofocus
+                        autocomplete="off" id="username" name="username">
+                    <button type="submit">Next</button>
+                </form>
+                
+                <div>
+                    <p>
+                        Already have an account?
+                        <a class="plain-link" href="#login">Log in</a>
+                        {% comment %} <a href="/">Log in</a> {% endcomment %}
+                    </p>
+                    <hr class="horizontal-separator">
+                    <p>
+                        Don't have an account?
+                        <a class="plain-link" href="#signup">Sign up</a>
+                    </p>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    {% if message %}
+    <script>alert("{{message}}")</script>
+    {% endif %}
+</body>
+
+</html>
